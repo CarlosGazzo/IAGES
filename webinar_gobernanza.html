@@ -42,22 +42,61 @@
     <div class="max-w-xl">
       <h2 class="text-xl font-bold mb-2">Gobernanza efectiva de la inversión pública en salud</h2>
       <p class="text-sm mb-2 italic">Expositora: Midori De Habich</p>
+
       <p class="text-sm text-gray-300">
         Este webinar aborda los principios fundamentales de la gobernanza en salud desde una perspectiva de inversión pública eficiente, transparente y con impacto. Se discuten los marcos normativos, las buenas prácticas de gestión y los retos clave para asegurar que los recursos en salud sean bien asignados y monitoreados.
       </p>
-	  <p class="text-sm text-gray-300">
-    Propone además un enfoque operativo para fortalecer los procesos de programación multianual, priorización de proyectos y seguimiento de la ejecución, con énfasis en trazabilidad, indicadores de desempeño y rendición de cuentas. Se presentan ejemplos aplicados en el Perú y lineamientos prácticos para alinear la inversión con brechas de oferta y resultados en salud, incluyendo mecanismos de gobernanza, roles institucionales y uso de evidencia para la toma de decisiones.
-	  </p>
+      <p class="text-sm text-gray-300">
+        Propone además un enfoque operativo para fortalecer los procesos de programación multianual, priorización de proyectos y seguimiento de la ejecución, con énfasis en trazabilidad, indicadores de desempeño y rendición de cuentas. Se presentan ejemplos aplicados en el Perú y lineamientos prácticos para alinear la inversión con brechas de oferta y resultados en salud, incluyendo mecanismos de gobernanza, roles institucionales y uso de evidencia para la toma de decisiones.
+      </p>
+
       <div class="mt-4">
-        <a href="https://us06web.zoom.us/rec/share/WFsTW_dAP_GxIYmwxkBSUYugRyIYiojad7rDN3yz4M1ASv5tAv0j19gSwYjfYur1.H1T5d3h2dpD518YT"
+        <a id="zoom-btn"
+           href="https://us06web.zoom.us/rec/share/WFsTW_dAP_GxIYmwxkBSUYugRyIYiojad7rDN3yz4M1ASv5tAv0j19gSwYjfYur1.H1T5d3h2dpD518YT"
            target="_blank"
            class="bg-[#00C2CB] hover:bg-[#00B6B6] text-white font-medium px-6 py-2 rounded">
           Ver grabación
         </a>
+
+        <!-- Contraseña con botón copiar -->
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-xs text-gray-300">Contraseña:</span>
+          <code id="zoom-pass" class="text-xs bg-[#1E2A38] px-2 py-1 rounded">^5+F9ARE</code>
+          <button id="copy-btn"
+                  class="text-xs border border-white/30 px-2 py-1 rounded hover:border-white/60"
+                  aria-label="Copiar contraseña">
+            Copiar
+          </button>
+          <span id="copied" class="text-xs text-[#00C2CB] hidden">Copiado</span>
+        </div>
       </div>
     </div>
 
   </main>
+
+  <script>
+    // Copiar la contraseña (funciona en móvil y laptop)
+    document.getElementById('copy-btn').addEventListener('click', async () => {
+      const txt = document.getElementById('zoom-pass').textContent;
+      try {
+        await navigator.clipboard.writeText(txt);
+        const ok = document.getElementById('copied');
+        ok.classList.remove('hidden');
+        setTimeout(() => ok.classList.add('hidden'), 1500);
+      } catch {
+        const range = document.createRange();
+        range.selectNode(document.getElementById('zoom-pass'));
+        const sel = window.getSelection();
+        sel.removeAllRanges(); sel.addRange(range);
+        alert('Presiona Ctrl+C (Cmd+C en Mac) para copiar.');
+      }
+    });
+
+    // Copiar automáticamente al hacer clic en "Ver grabación" (suave UX)
+    document.getElementById('zoom-btn').addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(document.getElementById('zoom-pass').textContent); } catch {}
+    });
+  </script>
 
 </body>
 </html>
